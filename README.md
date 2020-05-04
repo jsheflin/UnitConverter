@@ -7,6 +7,9 @@ A script that runs on the command line, i.e. *Terminal* on macOS, and *Command P
 Simple python script to help science teachers everywhere who don't know how to use Google.
 ;)
 
+## Testing
+
+To run simple test, command python test.py
 
 ## Installation
 

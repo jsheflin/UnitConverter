@@ -38,43 +38,69 @@ MULTIPLIERS_FROM_STD = {
 
 
 def get_user_input(choice):
-    # TODO:check for temp or volume and return invalid
     units = ', '.join(MULTIPLIERS_TO_STD[choice].keys())
-    source_unit = input('\nEnter source unit (%s): ' % units)
+    while True:
+       try:
+         source_unit = input('\nEnter source unit (%s): ' % units)
+       except ValueError:
+         print ('invalid')
+         continue
+       if source_unit not in units:
+         print("Sorry, I didn't understand that.")
+         continue
+       else:
+            break
     try:
       source_val = float(input('How many %s? ' % source_unit))
     except ValueError:
       print ('invalid')
-    convert_to = input('Convert to? (%s): ' % units)
+    while True:
+       try:
+         convert_to = input('Convert to? (%s): ' % units)
+       except ValueError:
+         print ('invalid')
+         continue
+       if convert_to not in units:
+         print("Sorry, I didn't understand that.")
+         continue
+       else:
+            break  
     try:
       answer = float(input('Answer?'))
     except ValueError:
       print ('incorrect')
     return source_unit, source_val, convert_to, answer
 
+def get_correct_choice(prompt):
 
-def main():
     print ("""Unit Converter
     1. Volume
     2. Temperature""")
+    
+    while True:
+        try:
+            value = int(input(prompt))
+        except ValueError:
+            print("Sorry, I didn't understand that.")
+            continue
 
-    choice = int(input('What do you want to convert: '))
+        if value < 1 or value > 2:
+            print("Sorry, you must choose 1 or 2.")
+            continue
+        else:
+            break
+    return value
 
+def convert(choice):
     if choice == 1:
         source_unit, source_val, convert_to,answer = get_user_input('volume')
         conversion = round(source_val * \
                                MULTIPLIERS_TO_STD['volume'][source_unit] * \
                                MULTIPLIERS_FROM_STD['volume'][convert_to], 1)
-        are_close = math.isclose(answer, conversion)
-        if are_close:
-          print('correct')
-        elif answer != conversion: 
-          print ('incorrect')  
-        print(conversion)                    
+        are_close = math.isclose(answer, conversion)          
     elif choice == 2:
       source_unit, source_val, convert_to,answer = get_user_input('temp')
       k = MULTIPLIERS_TO_STD['temp'][source_unit](float(source_val))
-	#   conversion =  (k, k - 273.15, k * 1.8 - 459.67, k * 1.8)
       if convert_to == 'C':
         conversion = k - 273.15
       elif convert_to == 'F':
@@ -82,12 +108,20 @@ def main():
       elif convert_to == 'R':
         conversion = k * 1.8
       else: conversion = k
-      are_close = math.isclose(answer, conversion)
-      if are_close:
-            print('correct')
-      elif answer != conversion: 
-            print ('incorrect')        
-      print(conversion)
+      are_close = math.isclose(answer, conversion)    
+    if are_close:
+          print('correct')
+    elif answer != conversion: 
+          print ('incorrect')        
+    print(conversion)      
+
+def main():
+
+    choice = get_correct_choice('What do you want to convert: ')
+    response = convert(choice)
+    
+    return response 
+   
        
 if __name__ == '__main__':
     main()
