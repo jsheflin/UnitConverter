@@ -9,7 +9,11 @@ Simple python script to help science teachers everywhere who don't know how to u
 
 ## Testing
 
-To run simple test, command python test.py
+To run simple test, on command line in the project, type:
+
+python -m unittest
+
+Expect a list of potential unit conversions, and 5 failures from incorrect answers on cup conversions.
 
 ## Installation
 
