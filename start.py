@@ -13,8 +13,8 @@ MULTIPLIERS_TO_STD = {
         'cf': 28.317,
         'l': 1, # std unit
         'g':  3.78,
-        'tb':  0.014,
-        'c': 0.236
+        'tb':  0.0147868,
+        'c': 0.236588
         },
     'temp': {
         'C': (lambda c: c + 273.15),
@@ -31,8 +31,8 @@ MULTIPLIERS_FROM_STD = {
         'cf': 0.035,
         'l': 1, # std unit
         'g': 0.26,
-        'tb': 67.63,
-        'c': 4.22
+        'tb': 67.628,
+        'c': 4.22675
         }
 }
 
@@ -57,7 +57,7 @@ def convert(source_unit, source_val, convert_to,answer):
       elif convert_to == 'R':
         conversion = k * 1.8
       else: conversion = k
-      are_close = math.isclose(answer, conversion)    
+      are_close = math.isclose(round(answer,1), round(conversion,1))    
     if are_close:
           print('correct')
     elif answer != conversion: 
